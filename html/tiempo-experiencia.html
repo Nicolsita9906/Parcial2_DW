@@ -3,8 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <title>4. Tiempo de experiencia laboral</title>
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
+<header>
+  <div class="logo">HV <span>Hoja de Vida</span></div>
+  <span style="font-size:12px;color:var(--c4);">usuario@ejemplo.com</span>
+</header>
+<nav>
+  <a class="done" href="datos-personales.html">1. Datos personales</a>
+  <a class="done" href="formacion-academica.html">2. Formación académica</a>
+  <a class="done" href="experiencia-laboral.html">3. Experiencia laboral</a>
+  <a class="active" href="tiempo-experiencia.html">4. Tiempo de experiencia</a>
+  <a href="certificacion.html">5. Certificación</a>
+</nav>
+<main>
+  <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
+  <div class="page-header">
+    <div class="step-badge">Paso 4 de 5</div>
+    <h2>Tiempo total de experiencia</h2>
+    <p>Indique el tiempo total por tipo de ocupación. El total se calcula automáticamente.</p>
+  </div>
 
+  <div class="card">
+    <div class="card-title"><span class="dot"></span> Tiempo por tipo de ocupación</div>
+
+    <div class="total-row">
+      <div class="occupation">Servidor público</div>
+      <div class="num">
+        <div class="num-field"><span>Años</span><input type="number" value="2" min="0" oninput="calcTotal()"></div>
+        <div class="num-field"><span>Meses</span><input type="number" value="6" min="0" max="11" oninput="calcTotal()"></div>
+      </div>
+    </div>
+    <div class="total-row">
+      <div class="occupation">Empleado del sector privado</div>
+      <div class="num">
+        <div class="num-field"><span>Años</span><input type="number" value="1" min="0" oninput="calcTotal()"></div>
+        <div class="num-field"><span>Meses</span><input type="number" value="0" min="0" max="11" oninput="calcTotal()"></div>
+      </div>
+    </div>
+    <div class="total-row">
+      <div class="occupation">Trabajador independiente</div>
+      <div class="num">
+        <div class="num-field"><span>Años</span><input type="number" value="0" min="0" oninput="calcTotal()"></div>
+        <div class="num-field"><span>Meses</span><input type="number" value="8" min="0" max="11" oninput="calcTotal()"></div>
+      </div>
+    </div>
+
+    <div class="total-sum" style="margin-top:16px;">
+      <span class="label">Total tiempo de experiencia</span>
+      <span class="value" id="total-exp">4 años, 2 meses</span>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px;">El sistema calcula automáticamente la sumatoria de años y meses.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot"></span> Firma del servidor público o contratista</div>
+    <div style="border: 1.5px dashed var(--c3); border-radius: var(--radius-sm); height: 90px; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:13px; background:#fafafa; cursor:pointer;">
+      Haga clic para firmar o cargar firma
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:6px;">Formato PNG o JPG, máximo 2MB</p>
+  </div>
+
+  <div class="preview-box">
+    <h4>Vista previa antes de continuar</h4>
+    <div class="preview-row"><span class="k">Sector público:</span><span class="v">2 años, 6 meses</span></div>
+    <div class="preview-row"><span class="k">Sector privado:</span><span class="v">1 año, 0 meses</span></div>
+    <div class="preview-row"><span class="k">Independiente:</span><span class="v">0 años, 8 meses</span></div>
+    <div class="preview-row"><span class="k">Total:</span><span class="v" style="color:var(--c2);font-size:15px;">4 años, 2 meses</span></div>
+  </div>
+
+  <div class="btn-row">
+    <a href="experiencia-laboral.html" class="btn btn-ghost">← Anterior</a>
+    <a href="certificacion.html" class="btn btn-primary">Siguiente →</a>
+  </div>
+</main>
+<footer>Facultad de Ingeniería · Desarrollo Web · EAM Institución Universitaria</footer>
 </body>
 </html>

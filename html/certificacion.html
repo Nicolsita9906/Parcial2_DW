@@ -3,8 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <title>5. Certificación</title>
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
+<header>
+  <div class="logo">HV <span>Hoja de Vida</span></div>
+  <span style="font-size:12px;color:var(--c4);">usuario@ejemplo.com</span>
+</header>
+<nav>
+  <a class="done" href="datos-personales.html">1. Datos personales</a>
+  <a class="done" href="formacion-academica.html">2. Formación académica</a>
+  <a class="done" href="experiencia-laboral.html">3. Experiencia laboral</a>
+  <a class="done" href="tiempo-experiencia.html">4. Tiempo de experiencia</a>
+  <a class="active" href="certificacion.html">5. Certificación</a>
+</nav>
+<main>
+  <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+  <div class="page-header">
+    <div class="step-badge">Paso 5 de 5</div>
+    <h2>Certificación y envío</h2>
+    <p>Revise el resumen completo y certifique la veracidad de la información antes de enviar.</p>
+  </div>
 
+  <div class="card">
+    <div class="card-title"><span class="dot"></span> Resumen final de la hoja de vida</div>
+    <div class="preview-row" style="margin-bottom:10px;"><span class="k">Nombre:</span><span class="v">Juan Carlos García Mendoza</span></div>
+    <div class="preview-row" style="margin-bottom:10px;"><span class="k">Documento:</span><span class="v">C.C. 1.234.567.890</span></div>
+    <div class="preview-row" style="margin-bottom:10px;"><span class="k">Formación:</span><span class="v">UN — Ingeniería de Sistemas + ES en curso</span></div>
+    <div class="preview-row" style="margin-bottom:10px;"><span class="k">Experiencia:</span><span class="v">2 registros · Total 4 años 2 meses</span></div>
+    <div class="preview-row"><span class="k">Estado actual:</span>
+      <span class="tag diligenciada">Diligenciada</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot"></span> Declaración juramentada</div>
+    <div style="background:#fffbf0;border:1px solid #f0d080;border-radius:var(--radius-sm);padding:1rem;font-size:13px;color:#7a5c00;line-height:1.6;margin-bottom:1rem;">
+      Manifiesto bajo la gravedad del juramento que si no me encuentro dentro de las causales de inhabilidad e incompatibilidad del orden constitucional o legal, para ejercer cargos empleos públicos o para celebrar contratos de prestación de servicios con la Administración Pública. Para todos los efectos legales, certifico que los datos anotados en el presente Formato Único de Hoja de Vida son veraces (Artículo 5° de la Ley 190/95).
+    </div>
+    <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:14px;">
+      <input type="checkbox" id="acepto" style="margin-top:2px;accent-color:var(--c2);width:16px;height:16px;">
+      <span>Acepto la declaración juramentada y certifico la veracidad de los datos.</span>
+    </label>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot"></span> Consulta de estado</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:160px;background:var(--bg);border-radius:var(--radius-sm);padding:1rem;text-align:center;">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">Estado actual</div>
+        <span class="tag diligenciada" style="font-size:14px;padding:4px 16px;">Diligenciada</span>
+      </div>
+      <div style="flex:1;min-width:160px;background:var(--bg);border-radius:var(--radius-sm);padding:1rem;text-align:center;">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">Enviada el</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text);">— / — / —</div>
+      </div>
+      <div style="flex:1;min-width:160px;background:var(--bg);border-radius:var(--radius-sm);padding:1rem;text-align:center;">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">Última revisión</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text);">Pendiente</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <a href="tiempo-experiencia.html" class="btn btn-ghost">← Anterior</a>
+    <div style="display:flex;gap:10px;">
+      <a href="tiempo-experiencia.html" class="btn btn-secondary">Editar</a>
+      <button class="btn btn-primary" onclick="enviar()">Enviar hoja de vida</button>
+    </div>
+  </div>
+</main>
+<footer>Facultad de Ingeniería · Desarrollo Web · EAM Institución Universitaria</footer>
 </body>
 </html>
