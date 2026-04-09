@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Datos personales — Hoja de Vida</title>
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">HV <span>Hoja de Vida</span></div>
+  <span style="font-size:12px;color:var(--c4);">usuario@ejemplo.com</span>
+</header>
+<nav>
+  <a class="active" href="datos-personales.html">1. Datos personales</a>
+  <a href="">2. Formación académica</a>
+  <a href="">3. Experiencia laboral</a>
+  <a href="">4. Tiempo de experiencia</a>
+  <a href="">5. Certificación</a>
+</nav>
+<main>
+  <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
+  <div class="page-header">
+    <div class="step-badge">Paso 1 de 5</div>
+    <h2>Datos personales</h2>
+    <p>Complete la información personal requerida. Los campos marcados con * son obligatorios.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot"></span> Identificación</div>
+    <div class="form-grid three">
+      <div class="field span3">
+        <label>Tipo de documento <span class="req">*</span></label>
+        <div class="radio-group">
+          <label class="radio-opt selected"><input type="radio" name="doc" checked> C.C.</label>
+          <label class="radio-opt"><input type="radio" name="doc"> C.E.</label>
+          <label class="radio-opt"><input type="radio" name="doc"> Pasaporte</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Número de documento <span class="req">*</span></label>
+        <input type="text" placeholder="Ej: 1.234.567.890">
+        <span class="err">Campo obligatorio</span>
+      </div>
+      <div class="field">
+        <label>Primer apellido <span class="req">*</span></label>
+        <input type="text" placeholder="Ej: García">
+      </div>
+      <div class="field">
+        <label>Segundo apellido</label>
+        <input type="text" placeholder="Ej: Mendoza">
+      </div>
+      <div class="field span2">
+        <label>Nombres <span class="req">*</span></label>
+        <input type="text" placeholder="Ej: Juan Carlos">
+      </div>
+      <div class="field">
+        <label>Sexo <span class="req">*</span></label>
+        <div class="radio-group">
+          <label class="radio-opt selected"><input type="radio" name="sex"> F</label>
+          <label class="radio-opt"><input type="radio" name="sex"> M</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Nacionalidad <span class="req">*</span></label>
+        <div class="radio-group">
+          <label class="radio-opt selected"><input type="radio" name="nat"> Colombiano</label>
+          <label class="radio-opt"><input type="radio" name="nat"> Extranjero</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>País de nacionalidad</label>
+        <select><option>Colombia</option><option>Venezuela</option><option>Ecuador</option></select>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot"></span> Libreta militar</div>
+    <div class="form-grid three">
+      <div class="field">
+        <label>Clase <span class="req">*</span></label>
+        <div class="radio-group">
+          <label class="radio-opt selected"><input type="radio" name="lm"> Primera</label>
+          <label class="radio-opt"><input type="radio" name="lm"> Segunda</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Número libreta</label>
+        <input type="text" placeholder="Número">
+      </div>
+      <div class="field">
+        <label>Distrito militar</label>
+        <select>
+          <option value="">Seleccione...</option>
+          <option>D.M. 01 — Bogotá</option>
+          <option>D.M. 02 — Medellín</option>
+          <option>D.M. 03 — Cali</option>
+          <option>D.M. 04 — Barranquilla</option>
+          <option>D.M. 05 — Manizales</option>
+          <option>D.M. 06 — Armenia</option>
+          <option>D.M. 07 — Pereira</option>
+          <option>D.M. 08 — Bucaramanga</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot"></span> Nacimiento y contacto</div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Fecha de nacimiento <span class="req">*</span></label>
+        <input type="date">
+      </div>
+      <div class="field">
+        <label>País de nacimiento <span class="req">*</span></label>
+        <select><option>Colombia</option></select>
+      </div>
+      <div class="field">
+        <label>Departamento de nacimiento <span class="req">*</span></label>
+        <select>
+          <option value="">Seleccione...</option>
+          <option>Antioquia</option><option>Bogotá D.C.</option>
+          <option selected>Quindío</option><option>Risaralda</option>
+          <option>Valle del Cauca</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Municipio de nacimiento <span class="req">*</span></label>
+        <select>
+          <option value="">Seleccione...</option>
+          <option selected>Armenia</option><option>Calarcá</option>
+          <option>Montenegro</option><option>Quimbaya</option>
+        </select>
+      </div>
+      <div class="field span2">
+        <label>Dirección de correspondencia <span class="req">*</span></label>
+        <input type="text" placeholder="Calle / Carrera / Av.">
+      </div>
+      <div class="field">
+        <label>Teléfono <span class="req">*</span></label>
+        <input type="tel" placeholder="Ej: 310 000 0000">
+      </div>
+      <div class="field">
+        <label>Correo electrónico <span class="req">*</span></label>
+        <input type="email" placeholder="correo@ejemplo.com">
+      </div>
+    </div>
+  </div>
+
+  <div class="preview-box">
+    <h4>Vista previa antes de continuar</h4>
+    <div class="preview-row"><span class="k">Nombre completo:</span><span class="v">Juan Carlos García Mendoza</span></div>
+    <div class="preview-row"><span class="k">Documento:</span><span class="v">C.C. 1.234.567.890</span></div>
+    <div class="preview-row"><span class="k">Fecha nacimiento:</span><span class="v">15 / 03 / 1995 — Armenia, Quindío</span></div>
+    <div class="preview-row"><span class="k">Teléfono:</span><span class="v">310 000 0000</span></div>
+  </div>
+
+  <div class="btn-row">
+    <a href="../index.html" class="btn btn-ghost">← Salir</a>
+    <div style="display:flex;gap:10px;">
+      <a href="formacion-academica.html" class="btn btn-primary">Siguiente →</a>
+    </div>
+  </div>
+</main>
+<footer>Facultad de Ingeniería · Desarrollo Web · EAM Institución Universitaria</footer>
+
+<script src="../js/datos-personales.js"></script>
+</body>
+</html>
