@@ -126,8 +126,12 @@ function crearHTMLEstudio(idx, obj) {
     <div class="field">
       <label>¿Graduado? <span class="req">*</span></label>
       <div class="radio-group est-graduado">
-        <label class="radio-opt ${obj && obj.graduado === 'Sí' ? 'selected' : ''}"><input type="radio"> Sí</label>
-        <label class="radio-opt ${obj && obj.graduado === 'No' ? 'selected' : (!obj ? '' : '')}"><input type="radio"> No</label>
+        <label class="radio-opt">
+  <input type="radio" name="graduado-${idx}"> Sí
+</label>
+<label class="radio-opt">
+  <input type="radio" name="graduado-${idx}"> No
+</label>
       </div>
     </div>
     <div class="field span2">
