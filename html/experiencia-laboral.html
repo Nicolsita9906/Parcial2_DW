@@ -1,146 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experiencia laboral — Hoja de Vida</title>
-    <link rel="stylesheet" href="../css/styles.css">
+<head> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experiencia laboral — Hoja de Vida</title>
+  <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-
 <header>
-    <div class="logo">HV <span>Hoja de Vida</span></div>
-    <span style="font-size:12px;color:var(--c4);" id="header-usuario"></span>
+  <div class="logo">HV <span>Hoja de Vida</span></div>
+  <span style="font-size:12px;color:var(--c4);" id="header-usuario"></span>
 </header>
 <nav>
-    <a class="done" href="datos-personales.html">1. Datos personales</a>
-    <a class="done" href="formacion-academica.html">2. Formación académica</a>
-    <a  class= "active" href="experiencia-laboral.html">3. Experiencia laboral</a>
-    <a href="tiempo-experiencia.html">4. Tiempo de experiencia</a>
-    <a href="certificacion.html">5. Certificación</a>
+  <a class="done" href="datos-personales.html">1. Datos personales</a>
+  <a class="done" href="formacion-academica.html">2. Formación académica</a>
+  <a class="active" href="experiencia-laboral.html">3. Experiencia laboral</a>
+  <a href="tiempo-experiencia.html">4. Tiempo de experiencia</a>
+  <a href="certificacion.html">5. Certificación</a>
 </nav>
 <main>
-    <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
-    <div class="page-header">
-        <div class="step-badge">Paso 3 de 5</div>
-        <h2>Experiencia laboral</h2>
-        <p>Relacione su experiencia en orden cronológico, comenzando por la más reciente.</p>
-    </div>
+  <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
+  <div class="page-header">
+    <div class="step-badge">Paso 3 de 5</div>
+    <h2>Experiencia laboral</h2>
+    <p>Relacione su experiencia en orden cronológico, comenzando por la más reciente.</p>
+  </div>
 
-    <div class="card">
-        <div class="card-title"><span class="dot"></span> Experiencias registradas</div>
-        <div id="exp-container">
+  <div class="card">
+    <div class="card-title"><span class="dot"></span> Experiencias registradas</div>
+    <div id="exp-container"></div>
+    <button class="btn-add" onclick="addExperiencia()">+ Agregar experiencia laboral</button>
+  </div>
 
-            <div class="subcard">
-                <div class="subcard-header">
-                    <div class="subcard-title">Empleo actual / contrato vigente</div>
-                    <button class="btn btn-danger" onclick="this.closest('.subcard').remove()">Eliminar</button>
-                </div>
-                <div class="form-grid">
-                    <div class="field span2">
-                        <label>Empresa o entidad <span class="req">*</span></label>
-                        <input type="text" placeholder="Nombre de la empresa">
-                    </div>
-                    <div class="field">
-                        <label>Tipo <span class="req">*</span></label>
-                        <div class="radio-group">
-                            <label class="radio-opt selected"><input type="radio" name="tipo1"> Pública</label>
-                            <label class="radio-opt"><input type="radio" name="tipo1"> Privada</label>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label>País</label>
-                        <select><option>Colombia</option></select>
-                    </div>
-                    <div class="field">
-                        <label>Departamento</label>
-                        <select><option selected>Quindío</option><option>Antioquia</option></select>
-                    </div>
-                    <div class="field">
-                        <label>Municipio</label>
-                        <select><option selected>Armenia</option></select>
-                    </div>
-                    <div class="field span2">
-                        <label>Cargo o contrato <span class="req">*</span></label>
-                        <input type="text" placeholder="Ej: Desarrollador Web">
-                    </div>
-                    <div class="field">
-                        <label>Dependencia</label>
-                        <input type="text" placeholder="Área / Departamento">
-                    </div>
-                    <div class="field">
-                        <label>Correo entidad</label>
-                        <input type="email" placeholder="contacto@empresa.com">
-                    </div>
-                    <div class="field">
-                        <label>Teléfono</label>
-                        <input type="tel" placeholder="Ej: 606 000 0000">
-                    </div>
-                    <div class="field">
-                        <label>Dirección</label>
-                        <input type="text" placeholder="Dirección de la entidad">
-                    </div>
-                    <div class="field">
-                        <label>Fecha de ingreso <span class="req">*</span></label>
-                        <input type="date">
-                    </div>
-                    <div class="field">
-                        <label>Fecha de retiro</label>
-                        <input type="date" placeholder="Dejar vacío si es actual">
-                        <span class="hint">Dejar vacío si es el empleo actual</span>
-                    </div>
-                </div>
-            </div>
+  <div class="preview-box">
+    <h4>Vista previa antes de continuar</h4>
+    <div class="preview-row"><span class="k">Empleo principal:</span><span class="v" id="prev-exp1">—</span></div>
+    <div class="preview-row"><span class="k">Anterior:</span><span class="v" id="prev-exp2">—</span></div>
+  </div>
 
-            <div class="subcard">
-                <div class="subcard-header">
-                    <div class="subcard-title">Empleo anterior 1</div>
-                    <button class="btn btn-danger" onclick="this.closest('.subcard').remove()">Eliminar</button>
-                </div>
-                <div class="form-grid">
-                    <div class="field span2">
-                        <label>Empresa o entidad <span class="req">*</span></label>
-                        <input type="text" placeholder="Empresa anterior" value="Tech Solutions S.A.S">
-                    </div>
-                    <div class="field">
-                        <label>Tipo</label>
-                        <div class="radio-group">
-                            <label class="radio-opt"><input type="radio" name="tipo2"> Pública</label>
-                            <label class="radio-opt selected"><input type="radio" name="tipo2"> Privada</label>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label>Cargo <span class="req">*</span></label>
-                        <input type="text" value="Practicante de Desarrollo">
-                    </div>
-                    <div class="field">
-                        <label>Fecha ingreso</label>
-                        <input type="date" value="2022-01-15">
-                    </div>
-                    <div class="field">
-                        <label>Fecha retiro</label>
-                        <input type="date" value="2022-12-15">
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <button class="btn-add" onclick="addExperiencia()">+ Agregar experiencia laboral</button>
-    </div>
-
-    <div class="preview-box">
-        <h4>Vista previa antes de continuar</h4>
-        <div class="preview-row"><span class="k">Empleo actual:</span><span class="v">Desarrollador Web — Empresa actual (Pública)</span></div>
-        <div class="preview-row"><span class="k">Anterior:</span><span class="v">Practicante — Tech Solutions S.A.S (Ene–Dic 2022)</span></div>
-    </div>
-
-    <div class="btn-row">
-        <a href="formacion-academica.html" class="btn btn-ghost">← Anterior</a>
-        <a href="tiempo-experiencia.html" class="btn btn-primary">Siguiente →</a>
-    </div>
+  <div class="btn-row">
+    <a href="formacion-academica.html" class="btn btn-ghost">← Anterior</a>
+    <button class="btn btn-primary" onclick="guardarYContinuar()">Siguiente →</button>
+  </div>
 </main>
 <footer>Facultad de Ingeniería · Desarrollo Web · EAM Institución Universitaria</footer>
-
 <script src="../js/experiencia-labora.js"></script>
 </body>
 </html>
