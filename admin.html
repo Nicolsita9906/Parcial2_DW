@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrador — Hoja de Vida</title>
+  <link rel="stylesheet" href="css/admin_style.css">
+</head>
+<body>
+<header>
+  <div class="logo">HV <span>Admin Panel</span></div>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <span style="font-size:12px;color:var(--c4);" id="header-usuario"></span>
+    <button class="btn btn-ghost" style="font-size:12px;padding:5px 12px;color:#fff;border-color:rgba(255,255,255,0.3);" onclick="salir()">Cerrar sesión</button>
+  </div>
+</header>
+<nav style="background:var(--c1);">
+  <span style="color:rgba(255,255,255,0.7);font-size:13px;padding:13px 18px;">Panel de Administración</span>
+</nav>
+<main>
+  <div class="page-header">
+    <h2>Hojas de vida recibidas</h2>
+    <p>Visualice, filtre y cambie el estado de las hojas de vida.</p>
+  </div>
+
+  <div class="admin-layout">
+    <!-- Sidebar filtros -->
+    <div class="sidebar">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Filtrar por estado</div>
+      <div id="sidebar-filtros"></div>
+    </div>
+
+    <!-- Tabla principal -->
+    <div class="admin-main">
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div class="table-wrap">
+          <table>
+            <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Documento</th>
+              <th>Correo</th>
+              <th>Fecha envío</th>
+              <th>Estado</th>
+              <th>Acción</th>
+            </tr>
+            </thead>
+            <tbody id="tabla-hvs">
+            <tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--muted);">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Panel detalle -->
+      <div class="card" id="panel-detalle" style="display:none;margin-top:1rem;">
+        <div class="card-title"><span class="dot"></span> Detalle de hoja de vida</div>
+        <div class="form-grid" style="margin-bottom:1rem;">
+          <div class="preview-row"><span class="k">Nombre:</span><span class="v" id="det-nombre">—</span></div>
+          <div class="preview-row"><span class="k">Documento:</span><span class="v" id="det-doc">—</span></div>
+          <div class="preview-row"><span class="k">Correo:</span><span class="v" id="det-correo">—</span></div>
+          <div class="preview-row"><span class="k">Formación:</span><span class="v" id="det-formacion">—</span></div>
+          <div class="preview-row"><span class="k">Experiencia:</span><span class="v" id="det-exp">—</span></div>
+          <div class="preview-row"><span class="k">Fecha envío:</span><span class="v" id="det-fecha">—</span></div>
+          <div class="preview-row"><span class="k">Estado actual:</span><span class="tag diligenciada" id="det-estado">—</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div class="field" style="flex:1;min-width:200px;">
+            <label>Cambiar estado</label>
+            <select id="nuevo-estado">
+              <option value="diligenciada">Diligenciada</option>
+              <option value="aceptada">Aceptada</option>
+              <option value="rechazada">Rechazada</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" style="margin-top:18px;" onclick="cambiarEstado()">Guardar cambio</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>Facultad de Ingeniería · Desarrollo Web · EAM Institución Universitaria</footer>
+<script src="./js/admin.js"></script>
+</body>
+</html>

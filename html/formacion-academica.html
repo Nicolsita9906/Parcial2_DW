@@ -1,37 +1,78 @@
 <!DOCTYPE html>
+<!-- Define el tipo de documento como HTML5 -->
+
 <html lang="es">
+<!-- Idioma del contenido: español -->
+
 <head>
+    <!-- Configuración general -->
+
     <meta charset="UTF-8">
+    <!-- Permite caracteres especiales -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Hace la página responsive -->
+
     <title>Formación académica — Hoja de Vida</title>
+    <!-- Título de la pestaña -->
+
     <link rel="stylesheet" href="../css/styles.css">
+    <!-- Archivo de estilos -->
 </head>
 
 <body>
+<!-- Contenido visible -->
+
+<!-- ================= HEADER ================= -->
 <header>
-    <div class="logo">HV <span>Hoja de Vida</span></div>
-    <span style="font-size:12px;color:var(--c4);" id="header-usuario"></span>
+    <div class="logo">
+        HV <span>Hoja de Vida</span>
+    </div>
+    <!-- Logo del sistema -->
+
+    <span id="header-usuario"></span>
+    <!-- Aquí se mostrará el usuario con JS -->
 </header>
+
+<!-- ================= NAVEGACIÓN ================= -->
 <nav>
+    <!-- Menú tipo pasos -->
+
     <a class="done" href="datos-personales.html">1. Datos personales</a>
     <a class="active" href="formacion-academica.html">2. Formación académica</a>
     <a href="experiencia-laboral.html">3. Experiencia laboral</a>
     <a href="tiempo-experiencia.html">4. Tiempo de experiencia</a>
     <a href="certificacion.html">5. Certificación</a>
 </nav>
+
+<!-- ================= CONTENIDO PRINCIPAL ================= -->
 <main>
-    <div class="progress-bar"><div class="progress-fill" style="width:40%"></div></div>
+
+    <!-- Barra de progreso -->
+    <div class="progress-bar">
+        <div class="progress-fill" style="width:40%"></div>
+    </div>
+
+    <!-- Encabezado -->
     <div class="page-header">
         <div class="step-badge">Paso 2 de 5</div>
         <h2>Formación académica</h2>
         <p>Registre su educación básica, media y superior en orden cronológico.</p>
     </div>
 
+    <!-- ================= EDUCACIÓN BÁSICA ================= -->
     <div class="card">
-        <div class="card-title"><span class="dot"></span> Educación básica y media</div>
-        <div class="field" style="margin-bottom:14px;">
-            <label>Último grado aprobado <span class="req">*</span></label>
+
+        <div class="card-title">
+            <span class="dot"></span> Educación básica y media
+        </div>
+
+        <!-- Selección de grado -->
+        <div class="field">
+            <label>Último grado aprobado *</label>
+
             <div class="grado-grid">
+                <!-- Botones de grado -->
                 <div class="grado-btn">1°</div><div class="grado-btn">2°</div>
                 <div class="grado-btn">3°</div><div class="grado-btn">4°</div>
                 <div class="grado-btn">5°</div><div class="grado-btn">6°</div>
@@ -40,154 +81,105 @@
                 <div class="grado-btn selected">11°</div>
             </div>
         </div>
+
+        <!-- Campos con ID (clave para JS 👀) -->
         <div class="form-grid">
+
             <div class="field">
                 <label>Título obtenido</label>
-                <input type="text" placeholder="Ej: Bachiller Académico">
+                <input type="text" id="titulo-basica">
+                <!-- ID para capturar valor en JS -->
             </div>
+
             <div class="field">
                 <label>Fecha de grado</label>
-                <input type="month">
+                <input type="date" id="fecha-basica">
+                <!-- ID para capturar fecha -->
             </div>
+
         </div>
     </div>
 
+    <!-- ================= EDUCACIÓN SUPERIOR ================= -->
     <div class="card">
-        <div class="card-title"><span class="dot"></span> Educación superior</div>
-        <div id="estudios-container">
-            <div class="subcard">
-                <div class="subcard-header">
-                    <div class="subcard-title">Estudio 1</div>
-                    <button class="btn btn-danger" onclick="this.closest('.subcard').remove()">Eliminar</button>
-                </div>
-                <div class="form-grid three">
-                    <div class="field">
-                        <label>Modalidad académica <span class="req">*</span></label>
-                        <select>
-                            <option value="">Seleccione...</option>
-                            <option>TC — Técnica</option>
-                            <option>TL — Tecnológica</option>
-                            <option>TE — Tecnológica Especializada</option>
-                            <option selected>UN — Universitaria</option>
-                            <option>ES — Especialización</option>
-                            <option>MG — Maestría / Magíster</option>
-                            <option>DOC — Doctorado / PhD</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label>N° semestres aprobados</label>
-                        <input type="number" placeholder="Ej: 10" min="1" max="20">
-                    </div>
-                    <div class="field">
-                        <label>¿Graduado? <span class="req">*</span></label>
-                        <div class="radio-group">
-                            <label class="radio-opt selected"><input type="radio" name="grad1"> Sí</label>
-                            <label class="radio-opt"><input type="radio" name="grad1"> No</label>
-                        </div>
-                    </div>
-                    <div class="field span2">
-                        <label>Nombre del programa / título obtenido <span class="req">*</span></label>
-                        <input type="text" placeholder="Ej: Ingeniería de Sistemas">
-                    </div>
-                    <div class="field">
-                        <label>Mes y año de terminación</label>
-                        <input type="month">
-                    </div>
-                    <div class="field">
-                        <label>N° tarjeta profesional</label>
-                        <input type="text" placeholder="Si aplica">
-                    </div>
-                </div>
-            </div>
 
-            <div class="subcard">
-                <div class="subcard-header">
-                    <div class="subcard-title">Estudio 2</div>
-                    <button class="btn btn-danger" onclick="this.closest('.subcard').remove()">Eliminar</button>
-                </div>
-                <div class="form-grid three">
-                    <div class="field">
-                        <label>Modalidad académica <span class="req">*</span></label>
-                        <select><option>ES — Especialización</option></select>
-                    </div>
-                    <div class="field">
-                        <label>N° semestres aprobados</label>
-                        <input type="number" placeholder="Ej: 2" min="1">
-                    </div>
-                    <div class="field">
-                        <label>¿Graduado? <span class="req">*</span></label>
-                        <div class="radio-group">
-                            <label class="radio-opt"><input type="radio" name="grad2"> Sí</label>
-                            <label class="radio-opt selected"><input type="radio" name="grad2"> No</label>
-                        </div>
-                    </div>
-                    <div class="field span2">
-                        <label>Nombre del programa / título obtenido <span class="req">*</span></label>
-                        <input type="text" placeholder="Ej: Especialización en Desarrollo de Software">
-                    </div>
-                    <div class="field">
-                        <label>Mes y año de terminación</label>
-                        <input type="month">
-                    </div>
-                </div>
-            </div>
+        <div class="card-title">
+            <span class="dot"></span> Educación superior
         </div>
-        <button class="btn-add" onclick="addEstudio()">+ Agregar otro estudio</button>
+
+        <!-- IMPORTANTE -->
+        <div id="estudios-container"></div>
+        <!-- Contenedor vacío: JS insertará aquí los estudios dinámicamente -->
+
+        <button class="btn-add" onclick="addEstudio()">
+            + Agregar otro estudio
+        </button>
+        <!-- Llama función JS -->
     </div>
 
+    <!-- ================= IDIOMAS ================= -->
     <div class="card">
-        <div class="card-title"><span class="dot"></span> Idiomas</div>
-        <div id="idiomas-container">
-            <div class="subcard" style="margin-bottom:8px;">
-                <div class="subcard-header">
-                    <div class="subcard-title">Inglés</div>
-                    <button class="btn btn-danger" onclick="this.closest('.subcard').remove()">Eliminar</button>
-                </div>
-                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
-                    <div>
-                        <div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:600;">LO HABLA</div>
-                        <div class="nivel-opts">
-                            <div class="nivel-btn">R</div>
-                            <div class="nivel-btn sel">B</div>
-                            <div class="nivel-btn">MB</div>
-                        </div>
-                    </div>
-                    <div>
-                        <div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:600;">LO LEE</div>
-                        <div class="nivel-opts">
-                            <div class="nivel-btn">R</div>
-                            <div class="nivel-btn">B</div>
-                            <div class="nivel-btn sel">MB</div>
-                        </div>
-                    </div>
-                    <div>
-                        <div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:600;">LO ESCRIBE</div>
-                        <div class="nivel-opts">
-                            <div class="nivel-btn">R</div>
-                            <div class="nivel-btn sel">B</div>
-                            <div class="nivel-btn">MB</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+        <div class="card-title">
+            <span class="dot"></span> Idiomas
         </div>
-        <button class="btn-add" onclick="addIdioma()">+ Agregar idioma</button>
+
+        <!-- Contenedor dinámico -->
+        <div id="idiomas-container"></div>
+
+        <button class="btn-add" onclick="addIdioma()">
+            + Agregar idioma
+        </button>
     </div>
 
+    <!-- ================= VISTA PREVIA ================= -->
     <div class="preview-box">
+
         <h4>Vista previa antes de continuar</h4>
-        <div class="preview-row"><span class="k">Último grado:</span><span class="v">11° — Bachiller Académico</span></div>
-        <div class="preview-row"><span class="k">Estudio 1:</span><span class="v">UN — Ingeniería de Sistemas (Graduado)</span></div>
-        <div class="preview-row"><span class="k">Idiomas:</span><span class="v">Inglés: Habla B / Lee MB / Escribe B</span></div>
+
+        <div class="preview-row">
+            <span class="k">Último grado:</span>
+            <span class="v" id="prev-grado">—</span>
+            <!-- JS actualiza este valor -->
+        </div>
+
+        <div class="preview-row">
+            <span class="k">Estudios:</span>
+            <span class="v" id="prev-estudios">—</span>
+        </div>
+
+        <div class="preview-row">
+            <span class="k">Idiomas:</span>
+            <span class="v" id="prev-idiomas">—</span>
+        </div>
+
     </div>
 
+    <!-- ================= BOTONES ================= -->
     <div class="btn-row">
-        <a href="datos-personales.html" class="btn btn-ghost">← Anterior</a>
-        <a href="experiencia-laboral.html" class="btn btn-primary">Siguiente →</a>
-    </div>
-</main>
-<footer>Facultad de Ingeniería · Desarrollo Web · EAM Institución Universitaria</footer>
 
+        <a href="datos-personales.html" class="btn btn-ghost">
+            ← Anterior
+        </a>
+
+        <!-- Aquí cambia respecto al otro código -->
+        <button class="btn btn-primary" onclick="guardarYContinuar()">
+            Siguiente →
+        </button>
+        <!-- Ejecuta lógica antes de avanzar -->
+
+    </div>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+    Facultad de Ingeniería · Desarrollo Web · EAM Institución Universitaria
+</footer>
+
+<!-- ================= JAVASCRIPT ================= -->
 <script src="../js/formacion-academica.js"></script>
+<!-- Aquí vive TODA la lógica dinámica -->
+
 </body>
 </html>
