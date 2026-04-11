@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -14,10 +14,10 @@
 </header>
 <nav>
   <a class="active" href="datos-personales.html">1. Datos personales</a>
-  <a href="../html/formacion-academica.html">2. Formación académica</a>
-  <a href="../html/experiencia-laboral.html">3. Experiencia laboral</a>
-  <a href="../html/tiempo-experiencia.html">4. Tiempo de experiencia</a>
-  <a href="../html/certificacion.html">5. Certificación</a>
+  <a href="formacion-academica.html">2. Formación académica</a>
+  <a href="experiencia-laboral.html">3. Experiencia laboral</a>
+  <a href="tiempo-experiencia.html">4. Tiempo de experiencia</a>
+  <a href="certificacion.html">5. Certificación</a>
 </nav>
 <main>
   <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
@@ -32,46 +32,44 @@
     <div class="form-grid three">
       <div class="field span3">
         <label>Tipo de documento <span class="req">*</span></label>
-        <div class="radio-group">
-          <label class="radio-opt selected"><input type="radio" name="doc" checked> C.C.</label>
+        <div class="radio-group" id="grupo-tipo-doc">
+          <label class="radio-opt selected"><input type="radio" name="doc"> C.C.</label>
           <label class="radio-opt"><input type="radio" name="doc"> C.E.</label>
           <label class="radio-opt"><input type="radio" name="doc"> Pasaporte</label>
         </div>
       </div>
       <div class="field">
         <label>Número de documento <span class="req">*</span></label>
-        <input type="text" placeholder="Ej: 1.234.567.890">
+        <input type="text" id="numero-doc" placeholder="Ej: 1234567890">
         <span class="err">Campo obligatorio</span>
       </div>
       <div class="field">
         <label>Primer apellido <span class="req">*</span></label>
-        <input type="text" placeholder="Ej: García">
+        <input type="text" id="primer-apellido" placeholder="Ej: García">
+        <span class="err">Campo obligatorio</span>
       </div>
       <div class="field">
         <label>Segundo apellido</label>
-        <input type="text" placeholder="Ej: Mendoza">
+        <input type="text" id="segundo-apellido" placeholder="Ej: Mendoza">
       </div>
       <div class="field span2">
         <label>Nombres <span class="req">*</span></label>
-        <input type="text" placeholder="Ej: Juan Carlos">
+        <input type="text" id="nombres" placeholder="Ej: Juan Carlos">
+        <span class="err">Campo obligatorio</span>
       </div>
       <div class="field">
         <label>Sexo <span class="req">*</span></label>
-        <div class="radio-group">
+        <div class="radio-group" id="grupo-sexo">
           <label class="radio-opt selected"><input type="radio" name="sex"> F</label>
           <label class="radio-opt"><input type="radio" name="sex"> M</label>
         </div>
       </div>
       <div class="field">
         <label>Nacionalidad <span class="req">*</span></label>
-        <div class="radio-group">
+        <div class="radio-group" id="grupo-nacionalidad">
           <label class="radio-opt selected"><input type="radio" name="nat"> Colombiano</label>
           <label class="radio-opt"><input type="radio" name="nat"> Extranjero</label>
         </div>
-      </div>
-      <div class="field">
-        <label>País de nacionalidad</label>
-        <select><option>Colombia</option><option>Venezuela</option><option>Ecuador</option></select>
       </div>
     </div>
   </div>
@@ -80,28 +78,20 @@
     <div class="card-title"><span class="dot"></span> Libreta militar</div>
     <div class="form-grid three">
       <div class="field">
-        <label>Clase <span class="req">*</span></label>
-        <div class="radio-group">
+        <label>Clase</label>
+        <div class="radio-group" id="grupo-clase-libreta">
           <label class="radio-opt selected"><input type="radio" name="lm"> Primera</label>
           <label class="radio-opt"><input type="radio" name="lm"> Segunda</label>
         </div>
       </div>
       <div class="field">
         <label>Número libreta</label>
-        <input type="text" placeholder="Número">
+        <input type="text" id="numero-libreta" placeholder="Número">
       </div>
       <div class="field">
         <label>Distrito militar</label>
-        <select>
-          <option value="">Seleccione...</option>
-          <option>D.M. 01 — Bogotá</option>
-          <option>D.M. 02 — Medellín</option>
-          <option>D.M. 03 — Cali</option>
-          <option>D.M. 04 — Barranquilla</option>
-          <option>D.M. 05 — Manizales</option>
-          <option>D.M. 06 — Armenia</option>
-          <option>D.M. 07 — Pereira</option>
-          <option>D.M. 08 — Bucaramanga</option>
+        <select id="distrito-militar">
+          <option value="">Cargando...</option>
         </select>
       </div>
     </div>
@@ -112,57 +102,56 @@
     <div class="form-grid">
       <div class="field">
         <label>Fecha de nacimiento <span class="req">*</span></label>
-        <input type="date">
+        <input type="date" id="fecha-nac">
+        <span class="err">Seleccione fecha</span>
       </div>
       <div class="field">
-        <label>País de nacimiento <span class="req">*</span></label>
+        <label>País de nacimiento</label>
         <select><option>Colombia</option></select>
       </div>
       <div class="field">
         <label>Departamento de nacimiento <span class="req">*</span></label>
-        <select>
-          <option value="">Seleccione...</option>
-          <option>Antioquia</option><option>Bogotá D.C.</option>
-          <option selected>Quindío</option><option>Risaralda</option>
-          <option>Valle del Cauca</option>
+        <select id="depto-nacimiento">
+          <option value="">Cargando...</option>
         </select>
+        <span class="err">Seleccione departamento</span>
       </div>
       <div class="field">
         <label>Municipio de nacimiento <span class="req">*</span></label>
-        <select>
-          <option value="">Seleccione...</option>
-          <option selected>Armenia</option><option>Calarcá</option>
-          <option>Montenegro</option><option>Quimbaya</option>
+        <select id="muni-nacimiento">
+          <option value="">Seleccione departamento primero</option>
         </select>
+        <span class="err">Seleccione municipio</span>
       </div>
       <div class="field span2">
         <label>Dirección de correspondencia <span class="req">*</span></label>
-        <input type="text" placeholder="Calle / Carrera / Av.">
+        <input type="text" id="direccion" placeholder="Calle / Carrera / Av.">
+        <span class="err">Campo obligatorio</span>
       </div>
       <div class="field">
         <label>Teléfono <span class="req">*</span></label>
-        <input type="tel" placeholder="Ej: 310 000 0000">
+        <input type="tel" id="telefono" placeholder="Ej: 310 000 0000">
+        <span class="err">Teléfono inválido</span>
       </div>
       <div class="field">
         <label>Correo electrónico <span class="req">*</span></label>
-        <input type="email" placeholder="correo@ejemplo.com">
+        <input type="email" id="correo" placeholder="correo@ejemplo.com">
+        <span class="err">Correo inválido</span>
       </div>
     </div>
   </div>
 
   <div class="preview-box">
     <h4>Vista previa antes de continuar</h4>
-    <div class="preview-row"><span class="k">Nombre completo:</span><span class="v">Juan Carlos García Mendoza</span></div>
-    <div class="preview-row"><span class="k">Documento:</span><span class="v">C.C. 1.234.567.890</span></div>
-    <div class="preview-row"><span class="k">Fecha nacimiento:</span><span class="v">15 / 03 / 1995 — Armenia, Quindío</span></div>
-    <div class="preview-row"><span class="k">Teléfono:</span><span class="v">310 000 0000</span></div>
+    <div class="preview-row"><span class="k">Nombre completo:</span><span class="v" id="prev-nombre">—</span></div>
+    <div class="preview-row"><span class="k">Documento:</span><span class="v" id="prev-doc">—</span></div>
+    <div class="preview-row"><span class="k">Fecha nacimiento:</span><span class="v" id="prev-fnac">—</span></div>
+    <div class="preview-row"><span class="k">Teléfono:</span><span class="v" id="prev-tel">—</span></div>
   </div>
 
   <div class="btn-row">
     <a href="../index.html" class="btn btn-ghost">← Salir</a>
-    <div style="display:flex;gap:10px;">
-      <a href="formacion-academica.html" class="btn btn-primary">Siguiente →</a>
-    </div>
+    <button class="btn btn-primary" onclick="guardarYContinuar()">Siguiente →</button>
   </div>
 </main>
 <footer>Facultad de Ingeniería · Desarrollo Web · EAM Institución Universitaria</footer>
