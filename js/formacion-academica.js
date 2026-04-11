@@ -1,389 +1,349 @@
-// ─────────────────────────────────────────────
-// ARREGLOS PREDEFINIDOS
-// ─────────────────────────────────────────────
-
-// Lista de modalidades académicas disponibles
-// Se usa para llenar el <select> en cada estudio
+// ── Arreglos predefinidos ──
 const modalidades = [
     { valor: 'TC',  texto: 'TC — Técnica' },
     { valor: 'TL',  texto: 'TL — Tecnológica' },
+    { valor: 'TE',  texto: 'TE — Tecnológica Especializada' },
     { valor: 'UN',  texto: 'UN — Universitaria' },
     { valor: 'ES',  texto: 'ES — Especialización' },
     { valor: 'MG',  texto: 'MG — Maestría / Magíster' },
     { valor: 'DOC', texto: 'DOC — Doctorado / PhD' },
 ];
 
-// Lista de idiomas disponibles para seleccionar
-const idiomasDisponibles = [
-    'Inglés','Francés','Alemán','Portugués',
-    'Italiano','Mandarin','Japonés','Árabe','Otro'
-];
+const idiomasDisponibles = ['Inglés','Francés','Alemán','Portugués','Italiano','Mandarin','Japonés','Árabe','Otro'];
 
-
-// ─────────────────────────────────────────────
-// ESTADO EN MEMORIA (variables globales)
-// ─────────────────────────────────────────────
-
-// Guarda los estudios actuales en memoria
+// ── Estado en memoria ──
 let estudios = [];
-
-// Guarda los idiomas actuales en memoria
 let idiomas  = [];
-
-// Contadores para numerar dinámicamente estudios e idiomas
 let contEstudio = 0;
 let contIdioma  = 0;
 
-
-// ─────────────────────────────────────────────
-// EVENTO PRINCIPAL AL CARGAR LA PÁGINA
-// ─────────────────────────────────────────────
-
 window.addEventListener('DOMContentLoaded', () => {
-
-    // Obtener usuario guardado en localStorage
     const u = JSON.parse(localStorage.getItem('hv_usuario') || '{}');
-
-    // Mostrar correo en el header
     const headerEl = document.getElementById('header-usuario');
     if (headerEl) headerEl.textContent = u.correo || '';
 
-    // ── Cargar datos guardados ──
-
-    // Estudios guardados
+    // Cargar datos guardados
     estudios = JSON.parse(localStorage.getItem('hv_formacion_estudios') || '[]');
-
-    // Idiomas guardados
     idiomas  = JSON.parse(localStorage.getItem('hv_formacion_idiomas')  || '[]');
 
-
-    // ── Cargar educación básica ──
+    // Cargar educación básica guardada
     const basica = JSON.parse(localStorage.getItem('hv_formacion_basica') || 'null');
-
     if (basica) {
-        // Rellenar campos
         setVal('titulo-basica', basica.titulo);
         setVal('fecha-basica', basica.fecha);
-
-        // Marcar el grado seleccionado
         marcarGrado(basica.grado);
     }
 
-
-    // ── Renderizar estudios guardados ──
+    // Renderizar estudios e idiomas guardados
     const cont = document.getElementById('estudios-container');
     if (cont) cont.innerHTML = '';
-
     estudios.forEach((e, i) => agregarEstudioDesdeObjeto(e, i));
 
-
-    // ── Renderizar idiomas guardados ──
     const contId = document.getElementById('idiomas-container');
     if (contId) contId.innerHTML = '';
-
     idiomas.forEach((id, i) => agregarIdiomaDesdeObjeto(id, i));
 
-
-    // ── Si no hay datos, crear uno por defecto ──
+    // Si no hay estudios, agregar uno vacío
     if (estudios.length === 0) addEstudio();
     if (idiomas.length === 0)  addIdioma();
 
-
-    // Inicializar eventos de botones de grado
     inicializarGradosBtns();
-
-    // Actualizar vista previa inicial
     actualizarPreview();
-
-    // Escuchar cambios en toda la página
     document.addEventListener('input', actualizarPreview);
     document.addEventListener('change', actualizarPreview);
 });
 
-
-// ─────────────────────────────────────────────
-// MANEJO DE GRADOS
-// ─────────────────────────────────────────────
-
-// Activa selección de botones de grado
+// ── Grados ──
 function inicializarGradosBtns() {
     document.querySelectorAll('.grado-btn').forEach(btn => {
         btn.addEventListener('click', function () {
-
-            // Quitar selección a todos
-            document.querySelectorAll('.grado-btn')
-                .forEach(b => b.classList.remove('selected'));
-
-            // Marcar el seleccionado
+            document.querySelectorAll('.grado-btn').forEach(b => b.classList.remove('selected'));
             this.classList.add('selected');
         });
     });
 }
 
-// Marca un grado específico (usado al cargar datos)
 function marcarGrado(grado) {
     document.querySelectorAll('.grado-btn').forEach(btn => {
-        btn.classList.toggle('selected',
-            btn.textContent.trim() === grado
-        );
+        btn.classList.toggle('selected', btn.textContent.trim() === grado);
     });
 }
 
-// Devuelve el grado seleccionado
 function leerGrado() {
     const sel = document.querySelector('.grado-btn.selected');
     return sel ? sel.textContent.trim() : '';
 }
 
-
-// ─────────────────────────────────────────────
-// CREACIÓN DE ESTUDIOS
-// ─────────────────────────────────────────────
-
-// Agregar estudio vacío
+// ── Agregar estudio (botón) ──
 function addEstudio() {
-
     const idx = contEstudio++;
-
     const cont = document.getElementById('estudios-container');
     if (!cont) return;
-
     const div = document.createElement('div');
     div.className = 'subcard';
     div.dataset.idx = idx;
-
-    // Insertar HTML generado
     div.innerHTML = crearHTMLEstudio(idx, null);
-
     cont.appendChild(div);
-
-    // Activar eventos dentro del nuevo elemento
     inicializarNivelBtnsEnCard(div);
-
-    // Renumerar estudios
     renumerarEstudios();
 }
 
-
-// Agregar estudio desde datos guardados
 function agregarEstudioDesdeObjeto(obj, i) {
-
     const idx = contEstudio++;
-
     const cont = document.getElementById('estudios-container');
     if (!cont) return;
-
     const div = document.createElement('div');
     div.className = 'subcard';
     div.dataset.idx = idx;
-
     div.innerHTML = crearHTMLEstudio(idx, obj);
-
     cont.appendChild(div);
-
     inicializarNivelBtnsEnCard(div);
-
     renumerarEstudios();
 }
 
-
-// Genera el HTML de un estudio
 function crearHTMLEstudio(idx, obj) {
-
-    // Crear opciones del select
     const opcsModal = modalidades.map(m =>
-        `<option value="${m.valor}"
-        ${obj && obj.modalidad === m.valor ? 'selected' : ''}>
-        ${m.texto}</option>`
+        `<option value="${m.valor}" ${obj && obj.modalidad === m.valor ? 'selected' : ''}>${m.texto}</option>`
     ).join('');
 
     return `
-    <!-- Aquí se construye todo el formulario dinámico -->
-    `;
+  <div class="subcard-header">
+    <div class="subcard-title">Estudio</div>
+    <button class="btn btn-danger" onclick="eliminarEstudio(this)">Eliminar</button>
+  </div>
+  <div class="form-grid three">
+    <div class="field">
+      <label>Modalidad <span class="req">*</span></label>
+      <select class="est-modalidad">
+        <option value="">Seleccione...</option>${opcsModal}
+      </select>
+      <span class="err">Campo obligatorio</span>
+    </div>
+    <div class="field">
+      <label>N° semestres aprobados</label>
+      <input type="number" class="est-semestres" placeholder="Ej: 10" min="1" max="20" value="${obj ? obj.semestres : ''}">
+    </div>
+    <div class="field">
+      <label>¿Graduado? <span class="req">*</span></label>
+      <div class="radio-group est-graduado">
+        <label class="radio-opt ${obj && obj.graduado === 'Sí' ? 'selected' : ''}"><input type="radio"> Sí</label>
+        <label class="radio-opt ${obj && obj.graduado === 'No' ? 'selected' : (!obj ? '' : '')}"><input type="radio"> No</label>
+      </div>
+    </div>
+    <div class="field span2">
+      <label>Nombre del programa / título <span class="req">*</span></label>
+      <input type="text" class="est-titulo" placeholder="Ej: Ingeniería de Sistemas" value="${obj ? obj.titulo : ''}">
+      <span class="err">Campo obligatorio</span>
+    </div>
+    <div class="field">
+      <label>Mes y año de terminación</label>
+      <input type="month" class="est-fecha" value="${obj ? obj.fecha : ''}">
+    </div>
+    <div class="field">
+      <label>N° tarjeta profesional</label>
+      <input type="text" class="est-tarjeta" placeholder="Si aplica" value="${obj ? obj.tarjeta : ''}">
+    </div>
+  </div>`;
 }
 
-
-// Eliminar estudio
 function eliminarEstudio(btn) {
     btn.closest('.subcard').remove();
     renumerarEstudios();
 }
 
-
-// Renumerar estudios (Estudio 1, 2, 3...)
 function renumerarEstudios() {
-    document.querySelectorAll('#estudios-container .subcard')
-        .forEach((sc, i) => {
-            const t = sc.querySelector('.subcard-title');
-            if (t) t.textContent = 'Estudio ' + (i + 1);
-        });
+    document.querySelectorAll('#estudios-container .subcard').forEach((sc, i) => {
+        const t = sc.querySelector('.subcard-title');
+        if (t) t.textContent = 'Estudio ' + (i + 1);
+    });
 }
 
-
-// ─────────────────────────────────────────────
-// EVENTOS INTERNOS (botones dinámicos)
-// ─────────────────────────────────────────────
-
 function inicializarNivelBtnsEnCard(card) {
-
-    // Radios (Sí / No)
     card.querySelectorAll('.radio-group').forEach(group => {
         group.querySelectorAll('.radio-opt').forEach(opt => {
-
             opt.addEventListener('click', function () {
-
-                group.querySelectorAll('.radio-opt')
-                    .forEach(o => o.classList.remove('selected'));
-
+                group.querySelectorAll('.radio-opt').forEach(o => o.classList.remove('selected'));
                 this.classList.add('selected');
             });
         });
     });
-
-    // Botones de nivel (idiomas)
     card.querySelectorAll('.nivel-opts').forEach(opts => {
         opts.querySelectorAll('.nivel-btn').forEach(btn => {
-
             btn.addEventListener('click', function () {
-
-                opts.querySelectorAll('.nivel-btn')
-                    .forEach(b => b.classList.remove('sel'));
-
+                opts.querySelectorAll('.nivel-btn').forEach(b => b.classList.remove('sel'));
                 this.classList.add('sel');
             });
         });
     });
 }
 
-
-// ─────────────────────────────────────────────
-// CREACIÓN DE IDIOMAS
-// ─────────────────────────────────────────────
-
+// ── Agregar idioma ──
 function addIdioma() {
-
     const idx = contIdioma++;
-
     const cont = document.getElementById('idiomas-container');
     if (!cont) return;
-
     const div = document.createElement('div');
     div.className = 'subcard';
-
     div.innerHTML = crearHTMLIdioma(idx, null);
-
     cont.appendChild(div);
-
     inicializarNivelBtnsEnCard(div);
-
     renumerarIdiomas();
 }
 
+function agregarIdiomaDesdeObjeto(obj, i) {
+    const idx = contIdioma++;
+    const cont = document.getElementById('idiomas-container');
+    if (!cont) return;
+    const div = document.createElement('div');
+    div.className = 'subcard';
+    div.innerHTML = crearHTMLIdioma(idx, obj);
+    cont.appendChild(div);
+    inicializarNivelBtnsEnCard(div);
+    renumerarIdiomas();
+}
 
-// Leer datos desde el DOM (estudios)
+function crearHTMLIdioma(idx, obj) {
+    const opcsIdioma = idiomasDisponibles.map(id =>
+        `<option ${obj && obj.nombre === id ? 'selected' : ''}>${id}</option>`
+    ).join('');
+
+    const niveles = ['R', 'B', 'MB'];
+    const crearNivel = (tipo, guardado) => `
+    <div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:600;">${tipo.toUpperCase()}</div>
+      <div class="nivel-opts">
+        ${niveles.map(n => `<div class="nivel-btn ${guardado === n ? 'sel' : ''}">${n}</div>`).join('')}
+      </div>
+    </div>`;
+
+    return `
+  <div class="subcard-header">
+    <div class="subcard-title">Idioma</div>
+    <button class="btn btn-danger" onclick="this.closest('.subcard').remove(); renumerarIdiomas()">Eliminar</button>
+  </div>
+  <div class="field" style="margin-bottom:10px;">
+    <label>Idioma</label>
+    <select class="idioma-nombre" style="max-width:200px;">
+      ${opcsIdioma}
+    </select>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+    ${crearNivel('Lo habla',   obj ? obj.habla   : '')}
+    ${crearNivel('Lo lee',     obj ? obj.lee     : '')}
+    ${crearNivel('Lo escribe', obj ? obj.escribe : '')}
+  </div>`;
+}
+
+function renumerarIdiomas() {
+    document.querySelectorAll('#idiomas-container .subcard').forEach((sc, i) => {
+        const t = sc.querySelector('.subcard-title');
+        if (t) t.textContent = 'Idioma ' + (i + 1);
+    });
+}
+
+// ── Leer datos del DOM ──
 function leerEstudios() {
-
     const resultado = [];
-
-    document.querySelectorAll('#estudios-container .subcard')
-        .forEach(sc => {
-
-            resultado.push({
-                modalidad: sc.querySelector('.est-modalidad')?.value || '',
-                semestres: sc.querySelector('.est-semestres')?.value || '',
-                graduado:  sc.querySelector('.radio-opt.selected')?.textContent.trim() || '',
-                titulo:    sc.querySelector('.est-titulo')?.value.trim() || '',
-                fecha:     sc.querySelector('.est-fecha')?.value || '',
-                tarjeta:   sc.querySelector('.est-tarjeta')?.value.trim() || '',
-            });
+    document.querySelectorAll('#estudios-container .subcard').forEach(sc => {
+        resultado.push({
+            modalidad:  sc.querySelector('.est-modalidad')?.value || '',
+            semestres:  sc.querySelector('.est-semestres')?.value || '',
+            graduado:   sc.querySelector('.est-graduado .radio-opt.selected')?.textContent.trim() || '',
+            titulo:     sc.querySelector('.est-titulo')?.value.trim() || '',
+            fecha:      sc.querySelector('.est-fecha')?.value || '',
+            tarjeta:    sc.querySelector('.est-tarjeta')?.value.trim() || '',
         });
-
+    });
     return resultado;
 }
 
-
-// ─────────────────────────────────────────────
-// VISTA PREVIA
-// ─────────────────────────────────────────────
-
-function actualizarPreview() {
-
-    const grado  = leerGrado();
-    const titulo = document.getElementById('titulo-basica')?.value || '';
-
-    // Mostrar datos en pantalla
-    setText('prev-grado',
-        grado ? grado + (titulo ? ' — ' + titulo : '') : '—'
-    );
+function leerIdiomas() {
+    const resultado = [];
+    document.querySelectorAll('#idiomas-container .subcard').forEach(sc => {
+        const niveles = sc.querySelectorAll('.nivel-opts');
+        const leerNivel = (opts) => opts?.querySelector('.nivel-btn.sel')?.textContent.trim() || '';
+        resultado.push({
+            nombre:  sc.querySelector('.idioma-nombre')?.value || '',
+            habla:   leerNivel(niveles[0]),
+            lee:     leerNivel(niveles[1]),
+            escribe: leerNivel(niveles[2]),
+        });
+    });
+    return resultado;
 }
 
+// ── Vista previa ──
+function actualizarPreview() {
+    const grado    = leerGrado();
+    const titulo   = document.getElementById('titulo-basica')?.value || '';
+    const estudArr = leerEstudios();
+    const idioArr  = leerIdiomas();
 
-// Función auxiliar para escribir texto
+    setText('prev-grado',   grado ? grado + (titulo ? ' — ' + titulo : '') : '—');
+    setText('prev-estudios', estudArr.length > 0
+        ? estudArr.map(e => (e.modalidad || '?') + (e.titulo ? ' — ' + e.titulo : '')).join(' | ')
+        : '—');
+    setText('prev-idiomas', idioArr.length > 0
+        ? idioArr.map(i => i.nombre + (i.habla ? ': H' + i.habla : '')).join(' | ')
+        : '—');
+}
+
 function setText(id, val) {
     const el = document.getElementById(id);
     if (el) el.textContent = val;
 }
 
+function setVal(id, val) {
+    const el = document.getElementById(id);
+    if (el && val != null) el.value = val;
+}
 
-// ─────────────────────────────────────────────
-// GUARDAR Y CONTINUAR
-// ─────────────────────────────────────────────
-
+// ── Guardar y continuar ──
 function guardarYContinuar() {
-
     let valido = true;
 
-    // Validación básica
-    document.querySelectorAll('#estudios-container .subcard')
-        .forEach(sc => {
+    // Validar al menos un estudio con título y modalidad
+    document.querySelectorAll('#estudios-container .subcard').forEach(sc => {
+        const modal = sc.querySelector('.est-modalidad');
+        const tit   = sc.querySelector('.est-titulo');
+        if (modal && !modal.value) { mostrarErr(modal, 'Seleccione modalidad'); valido = false; }
+        if (tit && !tit.value.trim()) { mostrarErr(tit, 'Campo obligatorio'); valido = false; }
+    });
 
-            const modal = sc.querySelector('.est-modalidad');
-            const tit   = sc.querySelector('.est-titulo');
+    if (!valido) {
+        document.querySelector('.has-error')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
 
-            if (modal && !modal.value) {
-                mostrarErr(modal, 'Seleccione modalidad');
-                valido = false;
-            }
-
-            if (tit && !tit.value.trim()) {
-                mostrarErr(tit, 'Campo obligatorio');
-                valido = false;
-            }
-        });
-
-    if (!valido) return;
-
-
-    // Guardar datos en localStorage
+    const grado = leerGrado();
     const basica = {
-        grado:  leerGrado(),
+        grado:  grado,
         titulo: document.getElementById('titulo-basica')?.value.trim() || '',
         fecha:  document.getElementById('fecha-basica')?.value || '',
     };
 
-    localStorage.setItem('hv_formacion_basica', JSON.stringify(basica));
+    estudios = leerEstudios();
+    idiomas  = leerIdiomas();
 
-    // Redirigir a la siguiente página
+    localStorage.setItem('hv_formacion_basica',   JSON.stringify(basica));
+    localStorage.setItem('hv_formacion_estudios', JSON.stringify(estudios));
+    localStorage.setItem('hv_formacion_idiomas',  JSON.stringify(idiomas));
+
+    // Actualizar estado HV
+    const hv = JSON.parse(localStorage.getItem('hv_estado') || '{}');
+    hv.estado = hv.estado || 'diligenciada';
+    hv.formacion = estudios.length;
+    localStorage.setItem('hv_estado', JSON.stringify(hv));
+
     window.location.href = 'experiencia-laboral.html';
 }
 
-
-// Mostrar errores en el formulario
 function mostrarErr(el, msg) {
-
     const field = el.closest('.field');
     if (!field) return;
-
     field.classList.add('has-error');
-
     let err = field.querySelector('.err');
-
-    if (!err) {
-        err = document.createElement('span');
-        err.className = 'err';
-        field.appendChild(err);
-    }
-
+    if (!err) { err = document.createElement('span'); err.className = 'err'; field.appendChild(err); }
     err.textContent = msg;
     err.style.display = 'block';
 }
