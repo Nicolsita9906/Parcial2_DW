@@ -211,7 +211,7 @@ function crearHTMLIdioma(idx, obj) {
         `<option ${obj && obj.nombre === id ? 'selected' : ''}>${id}</option>`
     ).join('');
 
-    const niveles = ['R', 'B', 'MB'];
+    const niveles = ['Regular', 'Bien', 'Muy Bien'];
     const crearNivel = (tipo, guardado) => `
     <div>
       <div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:600;">${tipo.toUpperCase()}</div>
