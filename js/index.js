@@ -24,5 +24,5 @@ function ingresar() {
 
   localStorage.setItem('hv_usuario', JSON.stringify(match));
 
-  window.location.href = match.rol === 'admin' ? 'admin.html' : '../html/datos-personales.html';
+  window.location.href = match.rol === 'admin' ? '../html/admin.html' : '../html/datos-personales.html';
 }
