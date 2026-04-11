@@ -4,7 +4,7 @@ window.addEventListener('DOMContentLoaded', () => {
   if (headerEl) headerEl.textContent = u.correo || '';
 
   cargarResumen();
-}); 
+});
 
 function cargarResumen() {
   const hv       = JSON.parse(localStorage.getItem('hv_estado')            || '{}');
@@ -111,7 +111,9 @@ function registrarHVEnAdmin(hv) {
     tiempoTotal: total.texto || '—',
     datosCompletos: {
       datosPersonales: datos,
+      formacionBasica: JSON.parse(localStorage.getItem('hv_formacion_basica') || '{}'),
       estudios,
+      idiomas: JSON.parse(localStorage.getItem('hv_formacion_idiomas') || '[]'),
       exps,
       tiempoTotal: total,
     }

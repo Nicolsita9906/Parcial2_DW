@@ -3,88 +3,83 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel Administrador — Hoja de Vida</title>
+  <title>Administrador — Hoja de Vida</title>
   <link rel="stylesheet" href="../css/admin_style.css">
 </head>
 <body>
-
 <header>
-  <div class="logo">HV <span>Administrador</span></div>
-  <div style="display:flex;align-items:center;gap:12px;">
+  <div class="logo">HV <span>Admin Panel</span></div>
+  <div style="display:flex;align-items:center;gap:16px;">
     <span style="font-size:12px;color:var(--c4);" id="header-usuario"></span>
-    <a href="../index.html" style="font-size:12px;color:rgba(255,255,255,0.6);background:transparent;border:1px solid rgba(255,255,255,0.2);padding:4px 10px;border-radius:4px;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:none;">Salir</a>
+    <button class="btn btn-ghost" style="font-size:12px;padding:5px 12px;color:#fff;border-color:rgba(255,255,255,0.3);" onclick="salir()">Cerrar sesión</button>
   </div>
 </header>
-<nav>
-  <a class="active">Hojas de vida</a>
+<nav style="background:var(--c1);">
+  <span style="color:rgba(255,255,255,0.7);font-size:13px;padding:13px 18px;">Panel de Administración</span>
 </nav>
 <main>
   <div class="page-header">
-    <h2>Panel de administración</h2>
-    <p>Visualice y gestione todas las hojas de vida registradas en el sistema.</p>
+    <h2>Hojas de vida recibidas</h2>
+    <p>Visualice, filtre y cambie el estado de las hojas de vida.</p>
   </div>
 
   <div class="admin-layout">
+    <!-- Sidebar filtros -->
     <div class="sidebar">
       <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Filtrar por estado</div>
-      <div class="sidebar-item active" onclick="filtrar(this,'todas')">Todas (0)</div>
-      <div class="sidebar-item" onclick="filtrar(this,'diligenciada')">Diligenciadas (0)</div>
-      <div class="sidebar-item" onclick="filtrar(this,'aceptada')">Aceptadas (0)</div>
-      <div class="sidebar-item" onclick="filtrar(this,'rechazada')">Rechazadas (0)</div>
+      <div id="sidebar-filtros"></div>
     </div>
 
+    <!-- Tabla principal -->
     <div class="admin-main">
       <div class="card" style="padding:0;overflow:hidden;">
-        <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
-          <div class="card-title" style="margin-bottom:0;border:none;padding:0;">Hojas de vida — Todas</div>
-          <input type="text" placeholder="Buscar por nombre o cédula..." oninput="buscar(this.value)"
-                 style="font-family:'Inter',sans-serif;font-size:13px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 12px;width:220px;background:#fafafa;">
-        </div>
         <div class="table-wrap">
           <table>
             <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Documento</th>
-              <th>Enviada</th>
-              <th>Estado</th>
-              <th>Acciones</th>
-            </tr>
+              <tr>
+                <th>Nombre</th>
+                <th>Documento</th>
+                <th>Correo</th>
+                <th>Fecha envío</th>
+                <th>Estado</th>
+                <th>Acción</th>
+              </tr>
             </thead>
+            <tbody id="tabla-hvs">
+              <tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--muted);">Cargando...</td></tr>
+            </tbody>
           </table>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Detail panel -->
-  <div id="detail-panel" style="display:none;margin-top:1.25rem;">
-    <div class="card">
-      <div class="card-title"><span class="dot"></span> Detalle — <span id="det-nombre"></span></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.25rem;">
-        <div class="preview-row"><span class="k">Nombre:</span><span class="v" id="det-nombre2"></span></div>
-        <div class="preview-row"><span class="k">C.C.:</span><span class="v" id="det-cc"></span></div>
-        <div class="preview-row"><span class="k">Formación:</span><span class="v" id="det-formacion"></span></div>
-        <div class="preview-row"><span class="k">Experiencia:</span><span class="v" id="det-exp"></span></div>
-      </div>
-      <div style="border-top:1px solid var(--border);padding-top:1rem;">
-        <div style="font-size:13px;font-weight:600;color:var(--c1);margin-bottom:10px;">Cambiar estado</div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <button class="btn" style="background:#e8f0fe;color:#1a56db;border:1px solid #c4d2f5;font-size:13px;padding:8px 20px;" onclick="changeStatus('Diligenciada')">Diligenciada</button>
-          <button class="btn" style="background:#def7ec;color:#057a55;border:1px solid #a8e6cf;font-size:13px;padding:8px 20px;" onclick="changeStatus('Aceptada')">Aceptar</button>
-          <button class="btn" style="background:#fde8e8;color:#c81e1e;border:1px solid #f8b4b4;font-size:13px;padding:8px 20px;" onclick="changeStatus('Rechazada')">Rechazar</button>
+      <!-- Panel detalle -->
+      <div class="card" id="panel-detalle" style="display:none;margin-top:1rem;">
+        <div class="card-title"><span class="dot"></span> Detalle de hoja de vida</div>
+        <div class="form-grid" style="margin-bottom:1rem;">
+          <div class="preview-row"><span class="k">Nombre:</span><span class="v" id="det-nombre">—</span></div>
+          <div class="preview-row"><span class="k">Documento:</span><span class="v" id="det-doc">—</span></div>
+          <div class="preview-row"><span class="k">Correo:</span><span class="v" id="det-correo">—</span></div>
+          <div class="preview-row"><span class="k">Formación:</span><span class="v" id="det-formacion">—</span></div>
+          <div class="preview-row"><span class="k">Experiencia:</span><span class="v" id="det-exp">—</span></div>
+          <div class="preview-row"><span class="k">Fecha envío:</span><span class="v" id="det-fecha">—</span></div>
+          <div class="preview-row"><span class="k">Estado actual:</span><span class="tag diligenciada" id="det-estado">—</span></div>
         </div>
-        <div id="status-msg" style="margin-top:10px;font-size:13px;color:var(--success);display:none;">Estado actualizado correctamente.</div>
-      </div>
-      <div style="display:flex;justify-content:flex-end;margin-top:1rem;">
-        <button class="btn btn-ghost" onclick="document.getElementById('detail-panel').style.display='none'">Cerrar</button>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div class="field" style="flex:1;min-width:200px;">
+            <label>Cambiar estado</label>
+            <select id="nuevo-estado">
+              <option value="diligenciada">Diligenciada</option>
+              <option value="aceptada">Aceptada</option>
+              <option value="rechazada">Rechazada</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" style="margin-top:18px;" onclick="cambiarEstado()">Guardar cambio</button>
+        </div>
       </div>
     </div>
   </div>
 </main>
 <footer>Facultad de Ingeniería · Desarrollo Web · EAM Institución Universitaria</footer>
-
-<script src="../js/index.js"></script>
 <script src="../js/admin.js"></script>
 </body>
 </html>
